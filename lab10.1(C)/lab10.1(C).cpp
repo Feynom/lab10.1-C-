@@ -1,5 +1,4 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <Windows.h>
 
@@ -18,25 +17,32 @@ int main()
 int search()
 {
     FILE* t;
-    t = fopen("t.txt", "r");
-
+    fopen_s(&t, "t.txt", "r");
+    
     char ch;
+
+    if (t == 0)
+    {
+        cerr << "Помилка відкриття файлу!\n";
+        exit(1);
+    }
+    else
+        ch = fgetc(t);
 
     int k = 0;
 
     int counter = 0;
 
-    ch = getc(t); // зчитує символи вже відкритого файлу
+                  // зчитує символи вже відкритого файлу
 
     while (ch != EOF)
     {       
-        ch == 'w' ? counter++, ch = getc(t) : counter = 0;
-        ;
-        ch == 'h' && counter == 1 ? counter++, ch = getc(t) : counter = 0;
-        ch == 'i' && counter == 2 ? counter++, ch = getc(t) : counter = 0;
-        ch == 'l' && counter == 3 ? counter++, ch = getc(t) : counter = 0;
+        ch == 'w' ? counter++, ch = fgetc(t) : counter = 0;
+        ch == 'h' && counter == 1 ? counter++, ch = fgetc(t) : counter = 0;
+        ch == 'i' && counter == 2 ? counter++, ch = fgetc(t) : counter = 0;
+        ch == 'l' && counter == 3 ? counter++, ch = fgetc(t) : counter = 0;
         ch == 'e' && counter == 4 ? k++ , counter = 0 : counter = 0;
-        ch = getc(t);
+        ch = fgetc(t);
     }
     return k;
 }
